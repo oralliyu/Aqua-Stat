@@ -1,0 +1,58 @@
+---
+Name: Funke Alliyu
+title: "AquaStatProject"
+output: html_notebook
+---
+
+Scraping Nigeria's Data
+
+```{r}
+
+library(rvest)
+library(lubridate)
+
+
+page <- "http://www.fao.org/nr/water/aquastat/data/query/results.html"
+xpath <- '//*[@id="z159"]'
+
+table_list <- 
+  page %>%
+  read_html() %>%
+  html_nodes(xpath = xpath) %>%
+  html_table(fill = TRUE)
+
+Nigeria <- table_list
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
