@@ -10,22 +10,37 @@ Scraping Nigeria's Data
 
 library(rvest)
 library(lubridate)
+rm(list = ls())
+
+```
 
 
-page <- "http://www.fao.org/nr/water/aquastat/data/query/results.html"
-xpath <- '//*[@id="z159"]'
 
-table_list <- 
-  page %>%
-  read_html() %>%
-  html_nodes(xpath = xpath) %>%
-  html_table(fill = TRUE)
 
-Nigeria <- table_list
+```{r}
+
+
+
+getwd()                          #Get working directory
+setwd("~/Downloads")             #Set working directory 
+
+read.csv("aquastat.csv")    #Read file in table format and create a data frame from it
+
+
+```
+
+
+
+```{r}
+
+
+
+
 
 
 
 ```
+
 
 
 
