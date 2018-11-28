@@ -7,7 +7,7 @@ output: html_notebook
 Scraping Nigeria's Data
 
 ```{r}
-
+library(data.table)
 library(rvest)
 library(lubridate)
 rm(list = ls())
@@ -20,11 +20,15 @@ rm(list = ls())
 ```{r}
 
 
-
 getwd()                          #Get working directory
 setwd("~/Downloads")             #Set working directory 
 
-read.csv("aquastat.csv")    #Read file in table format and create a data frame from it
+rawUnitdy <-read.csv("aquastat-3.csv")    #Read file in table format and create a data frame from it
+
+gc(reset=TRUE)                 #Change from data frame to data table
+tracemem(unitdy)
+untidy <- as.data.table(rawUnitdy)
+gc()
 
 
 ```
@@ -33,6 +37,14 @@ read.csv("aquastat.csv")    #Read file in table format and create a data frame f
 
 ```{r}
 
+Nigeria <- untidy[1:6, 2:738]      #Subset Nigeria's Data
+
+Nigeria                            #Take a look
+
+#Clean Nigeria
+
+Nigeria %>%
+  select(-X.1, -X.4, -X.7, -X.10, -X.13, -X.16, -X.19)
 
 
 
