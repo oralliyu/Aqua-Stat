@@ -9,14 +9,14 @@ output: html_notebook
 
 
 ```{r}
-library(data.table)
+library(data.table)       #Load all required packages
 library(rvest)
 library(lubridate)
 library(dbplyr)
 library(DataComputing)
 library(magrittr)
 library(Hmisc)
-rm(list = ls())
+rm(list = ls())            #Clean up environment
 
 ```
 
