@@ -15,6 +15,7 @@ library(lubridate)
 library(dbplyr)
 library(DataComputing)
 library(magrittr)
+library(Hmisc)
 rm(list = ls())
 
 ```
@@ -62,7 +63,7 @@ str(EmployeeSalaries)
 
 ```
 
-## Plotting Year vs. Average Salary
+## Correlation: Year vs. Average Salary
 
 ```{r}
 
@@ -76,13 +77,13 @@ EmployeeStats <-
   
 
 
-EmployeeStats %>%                           #plot regression line
+EmployeeStats %>%                           #plot scatterplot with regression
   ggplot(aes(x = year, y = avgSlry)) +
   geom_point(color = "red") +
   stat_smooth(method = lm)
 
 
-
+cor(EmployeeStats)
 
 ```
 
@@ -108,19 +109,46 @@ EmployeeStats <-
   
 
 
-EmployeeStats %>%
+EmployeeStats %>%                        #plot scatterplot with regression
   ggplot(aes(x = year, y = avgSlry)) +
   geom_point(color = "red") +
   stat_smooth(method = lm)
 
 
+cor(EmployeeStats)
+
 
 ```
 
-After I narrowed down the year, the correlation became much stronger. In order to see how much of the avverage salary explains the yea
+After I narrowed down the year, the correlation became much stronger in the negative direction.
 
 
+## Adding Gender into the mix
 
+
+Maybe this strong negative correlation can be explained by other factors like gender. 
+
+```{r}
+
+
+EmployeeSalaries %>%
+  mutate(dateHired = mdy(dateHired)) %>%   
+  mutate(dateHired = year(dateHired)) %>%     
+  mutate(year = dateHired) %>%
+  mutate(annualSalary = annualSalary/100) %>%
+  ggplot(aes(x = year , y = annualSalary)) +
+  geom_violin(color = "red", fill = "red") +
+  facet_wrap(~ gender) 
+
+
+```
+
+From the looks of this violin plot, there is not much difference between the two besides the fact that males have higher extremes.
+
+
+## Conclusion
+
+To conclude, by the data visualisations presented here one can tell that year is a good predictor of average salary while gender is not. 
 
 
 
