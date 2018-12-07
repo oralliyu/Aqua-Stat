@@ -51,13 +51,13 @@ EmployeeSalaries   #Take a look
 #Clean EmployeeSalaries
 
 
-EmployeeStats <-
+EmployeeSalaries <-
   EmployeeSalaries %>%
   rename(name = Full.Name, gender = Gender, annualSalary = Current.Annual.Salary, grossPay = X2017.Gross.Pay.Received, overtimePay = X2017.Overtime.Pay, dept = Department, position = Employee.Position.Title, dateHired = Date.First.Hired, deptName = Department.Name, employeeStatus = Assignment.Category) %>%
   select(-Position.Under.Filled, -Division)
 
 
-str(EmployeeStats)
+str(EmployeeSalaries)
 
 
 ```
@@ -66,7 +66,8 @@ str(EmployeeStats)
 
 ```{r}
 
-EmployeeStats %>%
+EmployeeStats <-
+  EmployeeSalaries %>%
   mutate(dateHired = mdy(dateHired)) %>%   #Correct variable type
   mutate(dateHired = year(dateHired)) %>%     #Change variable type to year
   mutate(year = dateHired) %>%              #rename variable
@@ -74,14 +75,17 @@ EmployeeStats %>%
   summarise(avgSlry = mean(annualSalary))       #average the salary per year
   
 
-
+EmployeeStats %>%
+  ggplot(aes(x = year, y = avgSlry)) +
+  geom_point(color = "red") +
+  stat_smooth(method = lm)
 
 
 
 
 ```
 
-
+In this scatterplot one is able to see a negative correlation after the year 1985. It might be useful to focus attention on those years when looking for a pattern. 
 
 
 
