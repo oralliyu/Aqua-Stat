@@ -5,12 +5,16 @@ output: html_notebook
 ---
 
 
+Exploring Employee Salaries
+
 
 ```{r}
 library(data.table)
 library(rvest)
 library(lubridate)
 library(dbplyr)
+library(DataComputing)
+library(magrittr)
 rm(list = ls())
 
 ```
@@ -49,15 +53,33 @@ EmployeeSalaries   #Take a look
 
 EmployeeStats <-
   EmployeeSalaries %>%
-  rename(name = Full.Name, gender = Gender, annualSalary = Current.Annual.Salary, grossPay = X2017.Gross.Pay.Received, overtimePay = X2017.Overtime.Pay, dept = Department, position = Employee.Position.Title, dateHired = Date.First.Hired)
+  rename(name = Full.Name, gender = Gender, annualSalary = Current.Annual.Salary, grossPay = X2017.Gross.Pay.Received, overtimePay = X2017.Overtime.Pay, dept = Department, position = Employee.Position.Title, dateHired = Date.First.Hired, deptName = Department.Name, employeeStatus = Assignment.Category) %>%
+  select(-Position.Under.Filled, -Division)
 
-EmployeeStats
-  
 
+str(EmployeeStats)
 
 
 ```
 
+## Plotting Year vs. Average Salary
+
+```{r}
+
+EmployeeStats %>%
+  mutate(dateHired = mdy(dateHired)) %>%   #Correct variable type
+  mutate(dateHired = year(dateHired)) %>%     #Change variable type to year
+  mutate(year = dateHired) %>%              #rename variable
+  group_by(year) %>%                   
+  summarise(avgSlry = mean(annualSalary))       #average the salary per year
+  
+
+
+
+
+
+
+```
 
 
 
