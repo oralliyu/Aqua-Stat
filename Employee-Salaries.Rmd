@@ -125,7 +125,7 @@ cor(EmployeeStats)
 
 ```
 
-After I narrowed down the year, the correlation became much stronger in the negative direction.
+After narrowing down the year, the correlation became much stronger in the negative direction.
 
 
 ## Adding Gender into the mix
