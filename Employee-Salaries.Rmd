@@ -5,7 +5,7 @@ output: html_notebook
 ---
 
 
-Exploring Employee Salaries
+###Exploring Employee Salaries
 
 
 ```{r}
