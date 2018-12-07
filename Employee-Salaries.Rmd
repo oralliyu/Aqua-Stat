@@ -1,0 +1,92 @@
+---
+Name: Funke Alliyu
+title: "AquaStatProject"
+output: html_notebook
+---
+
+
+
+```{r}
+library(data.table)
+library(rvest)
+library(lubridate)
+library(dbplyr)
+rm(list = ls())
+
+```
+
+
+
+
+```{r}
+
+
+getwd()                          #Get working directory
+setwd("~/Downloads")             #Set working directory 
+
+rawUnitdy <-read.csv("Employee_Salaries_-_2017.csv")    #Read file in table format and create a data frame from it
+
+gc(reset=TRUE)                 #Change from data frame to data table
+tracemem(rawUnitdy)
+EmployeeSalaries <- as.data.table(rawUnitdy)
+gc()
+
+
+```
+
+
+
+```{r}
+
+EmployeeSalaries   #Take a look
+
+```
+
+
+```{r}
+#Clean EmployeeSalaries
+
+
+EmployeeStats <-
+  EmployeeSalaries %>%
+  rename(name = Full.Name, gender = Gender, annualSalary = Current.Annual.Salary, grossPay = X2017.Gross.Pay.Received, overtimePay = X2017.Overtime.Pay, dept = Department, position = Employee.Position.Title, dateHired = Date.First.Hired)
+
+EmployeeStats
+  
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
